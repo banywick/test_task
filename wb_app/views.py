@@ -8,10 +8,9 @@ from .serializers import ProductSerializer
 class FetchProductInfo(APIView):
     def post(self, request):
         article = request.data.get('article')
-        print(article)
         if not article:
             return Response({"error": "Article is required"}, status=status.HTTP_400_BAD_REQUEST)
-        fetch_product_info.delay(article)
+        fetch_product_info(article)
         return Response({"message": "Task started"}, status=status.HTTP_202_ACCEPTED)
 
 class ListProducts(APIView):
